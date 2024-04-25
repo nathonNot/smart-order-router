@@ -1,7 +1,7 @@
-import { partitionMixedRouteByProtocol } from '@uniswap/router-sdk';
-import { Currency, CurrencyAmount, Ether } from '@uniswap/sdk-core';
-import { Pair } from '@uniswap/v2-sdk';
-import { Pool } from '@uniswap/v3-sdk';
+import { partitionMixedRouteByProtocol } from '@nathan2024/up-router-sdk';
+import { Currency, CurrencyAmount, Ether } from '@nathan2024/up-sdk-core';
+import { Pair } from '@nathan2024/up-v2-sdk';
+import { Pool } from '@nathan2024/up-v3-sdk';
 import { BigNumber } from 'ethers';
 import _ from 'lodash';
 import {

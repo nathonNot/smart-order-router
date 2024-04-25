@@ -4,7 +4,7 @@ import {
   Ether,
   NativeCurrency,
   Token,
-} from '@uniswap/sdk-core';
+} from '@nathan2024/up-sdk-core';
 
 // WIP: Gnosis, Moonbeam
 export const SUPPORTED_CHAINS: ChainId[] = [
@@ -489,6 +489,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
     '0x4300000000000000000000000000000000000004',
     18,
     'WETH',
+    'Wrapped Ether'
+  ),
+  [ChainId.BITLAYER_TESTNET]: new Token(
+    ChainId.BITLAYER_TESTNET,
+    '0x3e57d6946f893314324C975AA9CEBBdF3232967E',
+    18,
+    'WBTC',
     'Wrapped Ether'
   ),
 };

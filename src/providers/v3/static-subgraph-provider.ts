@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ChainId, Token } from '@uniswap/sdk-core';
-import { FeeAmount, Pool } from '@uniswap/v3-sdk';
+import { ChainId, Token } from '@nathan2024/up-sdk-core';
+import { FeeAmount, Pool } from '@nathan2024/up-v3-sdk';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 
@@ -52,6 +52,7 @@ import {
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
   WBTC_ARBITRUM,
+  WBTC_BITLAYERTEST,
   WBTC_GNOSIS,
   WBTC_GOERLI,
   WBTC_MAINNET,
@@ -166,6 +167,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.ZORA_SEPOLIA]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZORA_SEPOLIA]!],
   [ChainId.ROOTSTOCK]: [WRAPPED_NATIVE_CURRENCY[ChainId.ROOTSTOCK]!],
   [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
+  [ChainId.BITLAYER_TESTNET]: [WBTC_BITLAYERTEST],
 };
 
 /**
@@ -183,7 +185,7 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
   constructor(
     private chainId: ChainId,
     private poolProvider: IV3PoolProvider
-  ) {}
+  ) { }
 
   public async getPools(
     tokenIn?: Token,

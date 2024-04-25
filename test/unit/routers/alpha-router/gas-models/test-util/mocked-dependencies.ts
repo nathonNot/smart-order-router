@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Pair } from '@uniswap/v2-sdk';
-import { Pool } from '@uniswap/v3-sdk';
+import { Pair } from '@nathan2024/up-v2-sdk';
+import { Pool } from '@nathan2024/up-v3-sdk';
 import sinon from 'sinon';
 import { V3RouteWithValidQuote } from '../../../../../../build/main';
 import {

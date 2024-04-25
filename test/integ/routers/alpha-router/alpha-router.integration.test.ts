@@ -4,7 +4,7 @@
 
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { AllowanceTransfer, PermitSingle } from '@uniswap/permit2-sdk';
-import { Protocol } from '@uniswap/router-sdk';
+import { Protocol } from '@nathan2024/up-router-sdk';
 import {
   ChainId,
   Currency,
@@ -15,16 +15,16 @@ import {
   Rounding,
   Token,
   TradeType
-} from '@uniswap/sdk-core';
+} from '@nathan2024/up-sdk-core';
 import {
   PERMIT2_ADDRESS,
   UNIVERSAL_ROUTER_ADDRESS as UNIVERSAL_ROUTER_ADDRESS_BY_CHAIN
-} from '@uniswap/universal-router-sdk';
+} from '@nathan2024/up-universal-router-sdk';
 import {
   Permit2Permit
 } from '@uniswap/universal-router-sdk/dist/utils/inputTokens';
-import { Pair } from '@uniswap/v2-sdk';
-import { encodeSqrtRatioX96, FeeAmount, Pool } from '@uniswap/v3-sdk';
+import { Pair } from '@nathan2024/up-v2-sdk';
+import { encodeSqrtRatioX96, FeeAmount, Pool } from '@nathan2024/up-v3-sdk';
 import bunyan from 'bunyan';
 import { BigNumber, providers, Wallet } from 'ethers';
 import { parseEther } from 'ethers/lib/utils';
@@ -116,7 +116,7 @@ const LARGE_SLIPPAGE = new Percent(45, 100); // 5% or 10_000?
 
 // Those are the worst deviation (we intend to keep them low and strict) tested manually with FORK_BLOCK = 18222746
 // We may need to tune them if we change the FORK_BLOCK
-const GAS_ESTIMATE_DEVIATION_PERCENT: { [chainId in ChainId]: number }  = {
+const GAS_ESTIMATE_DEVIATION_PERCENT: { [chainId in ChainId]: number } = {
   [ChainId.MAINNET]: 40,
   [ChainId.GOERLI]: 62,
   [ChainId.SEPOLIA]: 50,
@@ -140,6 +140,7 @@ const GAS_ESTIMATE_DEVIATION_PERCENT: { [chainId in ChainId]: number }  = {
   [ChainId.ZORA_SEPOLIA]: 30,
   [ChainId.ROOTSTOCK]: 30,
   [ChainId.BLAST]: 34,
+  [ChainId.BITLAYER_TESTNET]: 34,
 }
 
 const V2_SUPPORTED_PAIRS = [
@@ -2670,7 +2671,7 @@ describe('alpha router integration', () => {
           GREENLIST_TOKEN_PAIRS.forEach(([tokenIn, tokenOut]) => {
             it(`${tokenIn.symbol} -> ${tokenOut.symbol} with portion`, async () => {
               const originalAmount = (tokenIn.symbol === 'WBTC' && tradeType === TradeType.EXACT_INPUT) ||
-              (tokenOut.symbol === 'WBTC' && tradeType === TradeType.EXACT_OUTPUT)
+                (tokenOut.symbol === 'WBTC' && tradeType === TradeType.EXACT_OUTPUT)
                 ? '1'
                 : '100';
               const amount =
@@ -2753,7 +2754,7 @@ describe('alpha router integration', () => {
               );
 
               // skip checking token in amount for native ETH, since we have no way to know the exact gas cost in terms of ETH token
-              const checkTokenInAmount = tokenIn.isNative ? undefined: parseFloat(amount.toFixed(0))
+              const checkTokenInAmount = tokenIn.isNative ? undefined : parseFloat(amount.toFixed(0))
               // skip checking token out amount for native ETH, since we have no way to know the exact gas cost in terms of ETH token
               const checkTokenOutAmount = tokenOut.isNative ? undefined : parseFloat(amount.toFixed(0))
               const checkPortionAmount = parseFloat(expectedPortionAmount.toFixed(0))
@@ -3385,7 +3386,7 @@ describe('quote for other networks', () => {
       const erc1 = TEST_ERC20_1[chain]();
       const erc2 = TEST_ERC20_2[chain]();
 
-      describe(`${ID_TO_NETWORK_NAME(chain)} ${tradeType} 2xx`, function() {
+      describe(`${ID_TO_NETWORK_NAME(chain)} ${tradeType} 2xx`, function () {
         const wrappedNative = WNATIVE_ON(chain);
 
         let alphaRouter: AlphaRouter;
@@ -3452,7 +3453,7 @@ describe('quote for other networks', () => {
           });
         });
 
-        describe(`Swap`, function() {
+        describe(`Swap`, function () {
           it(`${wrappedNative.symbol} -> erc20`, async () => {
             const tokenIn = wrappedNative;
             const tokenOut = erc1;
@@ -3683,7 +3684,7 @@ describe('quote for other networks', () => {
         });
 
         if (isTenderlyEnvironmentSet()) {
-          describe(`Simulate + Swap ${tradeType.toString()}`, function() {
+          describe(`Simulate + Swap ${tradeType.toString()}`, function () {
             // Tenderly does not support Celo
             if ([ChainId.CELO, ChainId.CELO_ALFAJORES, ChainId.SEPOLIA, ChainId.BLAST].includes(chain)) {
               return;
@@ -3731,12 +3732,12 @@ describe('quote for other networks', () => {
 
               // Universal Router is not deployed on Gorli.
               const swapOptions: SwapOptions =
-                {
-                  type: SwapType.UNIVERSAL_ROUTER,
-                  recipient: WHALES(tokenIn),
-                  slippageTolerance: SLIPPAGE,
-                  deadlineOrPreviousBlockhash: parseDeadline(360),
-                };
+              {
+                type: SwapType.UNIVERSAL_ROUTER,
+                recipient: WHALES(tokenIn),
+                slippageTolerance: SLIPPAGE,
+                deadlineOrPreviousBlockhash: parseDeadline(360),
+              };
 
               const swap = await alphaRouter.route(
                 amount,
@@ -3834,12 +3835,12 @@ describe('quote for other networks', () => {
 
               // Universal Router is not deployed on Gorli.
               const swapOptions: SwapOptions =
-                {
-                  type: SwapType.UNIVERSAL_ROUTER,
-                  recipient: WHALES(tokenIn),
-                  slippageTolerance: SLIPPAGE,
-                  deadlineOrPreviousBlockhash: parseDeadline(360),
-                };
+              {
+                type: SwapType.UNIVERSAL_ROUTER,
+                recipient: WHALES(tokenIn),
+                slippageTolerance: SLIPPAGE,
+                deadlineOrPreviousBlockhash: parseDeadline(360),
+              };
 
               const swap = await alphaRouter.route(
                 amount,
@@ -3934,12 +3935,12 @@ describe('quote for other networks', () => {
 
               // Universal Router is not deployed on Gorli.
               const swapOptions: SwapOptions =
-                {
-                  type: SwapType.UNIVERSAL_ROUTER,
-                  recipient: WHALES(tokenIn),
-                  slippageTolerance: SLIPPAGE,
-                  deadlineOrPreviousBlockhash: parseDeadline(360),
-                };
+              {
+                type: SwapType.UNIVERSAL_ROUTER,
+                recipient: WHALES(tokenIn),
+                slippageTolerance: SLIPPAGE,
+                deadlineOrPreviousBlockhash: parseDeadline(360),
+              };
 
               const swap = await alphaRouter.route(
                 amount,
@@ -4037,12 +4038,12 @@ describe('quote for other networks', () => {
 
               // Universal Router is not deployed on Gorli.
               const swapOptions: SwapOptions =
-                {
-                  type: SwapType.UNIVERSAL_ROUTER,
-                  recipient: WHALES(tokenIn),
-                  slippageTolerance: SLIPPAGE,
-                  deadlineOrPreviousBlockhash: parseDeadline(360),
-                };
+              {
+                type: SwapType.UNIVERSAL_ROUTER,
+                recipient: WHALES(tokenIn),
+                slippageTolerance: SLIPPAGE,
+                deadlineOrPreviousBlockhash: parseDeadline(360),
+              };
 
               const swap = await alphaRouter.route(
                 amount,

@@ -1,5 +1,5 @@
-import { ChainId, Token, TradeType } from '@uniswap/sdk-core';
-import { encodeSqrtRatioX96, FeeAmount, Pool } from '@uniswap/v3-sdk';
+import { ChainId, Token, TradeType } from '@nathan2024/up-sdk-core';
+import { encodeSqrtRatioX96, FeeAmount, Pool } from '@nathan2024/up-v3-sdk';
 import _ from 'lodash';
 import sinon from 'sinon';
 import {

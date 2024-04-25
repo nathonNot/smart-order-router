@@ -1,5 +1,5 @@
-import { ChainId, Token } from '@uniswap/sdk-core';
-import { Pair } from '@uniswap/v2-sdk';
+import { ChainId, Token } from '@nathan2024/up-sdk-core';
+import { Pair } from '@nathan2024/up-v2-sdk';
 import _ from 'lodash';
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../util/chains';
@@ -34,6 +34,7 @@ import {
   USDT_MAINNET,
   USDT_OPTIMISM,
   WBTC_ARBITRUM,
+  WBTC_BITLAYERTEST,
   WBTC_MAINNET,
   WBTC_MOONBEAM,
   WBTC_OPTIMISM,
@@ -110,6 +111,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.ZORA_SEPOLIA]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZORA_SEPOLIA]!],
   [ChainId.ROOTSTOCK]: [WRAPPED_NATIVE_CURRENCY[ChainId.ROOTSTOCK]!],
   [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
+  [ChainId.BITLAYER_TESTNET]: [WRAPPED_NATIVE_CURRENCY[ChainId.BITLAYER_TESTNET]!, WBTC_BITLAYERTEST],
 };
 
 /**
@@ -125,7 +127,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
  * @class StaticV2SubgraphProvider
  */
 export class StaticV2SubgraphProvider implements IV2SubgraphProvider {
-  constructor(private chainId: ChainId) {}
+  constructor(private chainId: ChainId) { }
 
   public async getPools(
     tokenIn?: Token,

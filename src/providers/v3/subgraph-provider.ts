@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { ChainId, Token } from '@nathan2024/up-sdk-core';
 import retry from 'async-retry';
 import Timeout from 'await-timeout';
 import { gql, GraphQLClient } from 'graphql-request';
@@ -68,6 +68,7 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
   [ChainId.BASE]:
     'https://api.studio.thegraph.com/query/48211/uniswap-v3-base/version/latest',
   [ChainId.BLAST]: 'https://gateway-arbitrum.network.thegraph.com/api/0ae45f0bf40ae2e73119b44ccd755967/subgraphs/id/2LHovKznvo8YmKC9ZprPjsYAZDCc4K5q4AYz8s3cnQn1',
+  [ChainId.BITLAYER_TESTNET]: '',
 };
 
 const PAGE_SIZE = 1000; // 1k is max possible query size from subgraph.
@@ -138,10 +139,9 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
     let pools: RawV3SubgraphPool[] = [];
 
     log.info(
-      `Getting V3 pools from the subgraph with page size ${PAGE_SIZE}${
-        providerConfig?.blockNumber
-          ? ` as of block ${providerConfig?.blockNumber}`
-          : ''
+      `Getting V3 pools from the subgraph with page size ${PAGE_SIZE}${providerConfig?.blockNumber
+        ? ` as of block ${providerConfig?.blockNumber}`
+        : ''
       }.`
     );
 

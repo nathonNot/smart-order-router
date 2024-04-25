@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ChainId, Token } from '@uniswap/sdk-core';
+import { ChainId, Token } from '@nathan2024/up-sdk-core';
 
 import {
   BTC_BNB,
@@ -14,6 +14,7 @@ import {
   USDC_MAINNET,
   USDT_BNB,
   USDT_MAINNET,
+  WBTC_BITLAYERTEST,
   WBTC_MAINNET,
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI
@@ -76,6 +77,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST = (
     [ChainId.ZORA_SEPOLIA]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZORA_SEPOLIA]!],
     [ChainId.ROOTSTOCK]: [WRAPPED_NATIVE_CURRENCY[ChainId.ROOTSTOCK]!],
     [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
+    [ChainId.BITLAYER_TESTNET]: [WRAPPED_NATIVE_CURRENCY[ChainId.BITLAYER_TESTNET]!, WBTC_BITLAYERTEST],
   };
 };
 

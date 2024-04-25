@@ -3,9 +3,9 @@ import {
   ChainId,
   CurrencyAmount as CurrencyAmountRaw,
   Token,
-} from '@uniswap/sdk-core';
-import { Pair } from '@uniswap/v2-sdk';
-import { Pool } from '@uniswap/v3-sdk';
+} from '@nathan2024/up-sdk-core';
+import { Pair } from '@nathan2024/up-v2-sdk';
+import { Pool } from '@nathan2024/up-v3-sdk';
 
 import { ProviderConfig } from '../../../providers/provider';
 import {
@@ -52,6 +52,7 @@ import {
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
   USDT_OPTIMISM_SEPOLIA,
+  WBTC_BITLAYERTEST,
   WBTC_GOERLI
 } from '../../../providers/token-provider';
 import { IV2PoolProvider } from '../../../providers/v2/pool-provider';
@@ -114,6 +115,7 @@ export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
   ],
   [ChainId.BASE]: [USDC_BASE, USDC_NATIVE_BASE],
   [ChainId.BLAST]: [USDB_BLAST],
+  [ChainId.BITLAYER_TESTNET]: [WBTC_BITLAYERTEST]
 };
 
 export type L1ToL2GasCosts = {

@@ -3,8 +3,8 @@ import {
   CHAIN_TO_ADDRESSES_MAP,
   SWAP_ROUTER_02_ADDRESSES as SWAP_ROUTER_02_ADDRESSES_HELPER,
   Token,
-} from '@uniswap/sdk-core';
-import { FACTORY_ADDRESS } from '@uniswap/v3-sdk';
+} from '@nathan2024/up-sdk-core';
+import { FACTORY_ADDRESS } from '@nathan2024/up-v3-sdk';
 
 import { NETWORKS_WITH_SAME_UNISWAP_ADDRESSES } from './chains';
 
@@ -39,6 +39,7 @@ export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
     CHAIN_TO_ADDRESSES_MAP[ChainId.BASE_GOERLI].v3CoreFactoryAddress,
   [ChainId.BASE]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE].v3CoreFactoryAddress,
   [ChainId.BLAST]: CHAIN_TO_ADDRESSES_MAP[ChainId.BLAST].v3CoreFactoryAddress,
+  [ChainId.BITLAYER_TESTNET]: CHAIN_TO_ADDRESSES_MAP[ChainId.BITLAYER_TESTNET].v3CoreFactoryAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
@@ -84,6 +85,7 @@ export const MIXED_ROUTE_QUOTER_V1_ADDRESSES: AddressMap = {
     CHAIN_TO_ADDRESSES_MAP[ChainId.MAINNET].v1MixedRouteQuoterAddress,
   [ChainId.GOERLI]:
     CHAIN_TO_ADDRESSES_MAP[ChainId.GOERLI].v1MixedRouteQuoterAddress,
+  [ChainId.BITLAYER_TESTNET]: CHAIN_TO_ADDRESSES_MAP[ChainId.BITLAYER_TESTNET].v1MixedRouteQuoterAddress,
 };
 
 export const UNISWAP_MULTICALL_ADDRESSES: AddressMap = {
@@ -107,10 +109,11 @@ export const UNISWAP_MULTICALL_ADDRESSES: AddressMap = {
     CHAIN_TO_ADDRESSES_MAP[ChainId.BASE_GOERLI].multicallAddress,
   [ChainId.BASE]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE].multicallAddress,
   [ChainId.BLAST]: CHAIN_TO_ADDRESSES_MAP[ChainId.BLAST].multicallAddress,
+  [ChainId.BITLAYER_TESTNET]: CHAIN_TO_ADDRESSES_MAP[ChainId.BITLAYER_TESTNET].multicallAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
-export const SWAP_ROUTER_02_ADDRESSES= (chainId: number): string => {
+export const SWAP_ROUTER_02_ADDRESSES = (chainId: number): string => {
   return SWAP_ROUTER_02_ADDRESSES_HELPER(chainId) ?? '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45';
 };
 
@@ -156,6 +159,7 @@ export const WETH9: {
     | ChainId.ROOTSTOCK
     | ChainId.ZORA
     | ChainId.ZORA_SEPOLIA
+    | ChainId.BITLAYER_TESTNET
   >]: Token;
 } = {
   [ChainId.MAINNET]: new Token(
@@ -241,7 +245,7 @@ export const WETH9: {
     18,
     'WETH',
     'Wrapped Ether'
-  )
+  ),
 };
 
 export const BEACON_CHAIN_DEPOSIT_ADDRESS =
